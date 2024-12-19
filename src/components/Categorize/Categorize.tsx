@@ -256,7 +256,7 @@ const Categorize: React.FC<QuestionProps> = ({
         <div>
           <h3 className="text-gray-700 font-medium mb-2">Belongs To</h3>
           <div className="space-y-2">
-            {items.map((it, idx) => (
+            {items.map((it) => (
               <select
                 key={it.id + "-select"}
                 className="border border-gray-300 rounded px-2 py-1 w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
