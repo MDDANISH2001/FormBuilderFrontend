@@ -1,13 +1,8 @@
 import { create } from "zustand";
 
-interface Word {
-  id: string;
-  text: string;
-}
-
 interface ClozeQuestionData {
   sentence: string;
-  words: Word[];
+  words: string[];
 }
 
 interface IClozeStore {

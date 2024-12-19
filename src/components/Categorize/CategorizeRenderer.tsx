@@ -7,16 +7,28 @@ import {
 } from "@hello-pangea/dnd";
 import { useRendererStore } from "@/utils/RendererStore";
 
+interface Category {
+  id: string;
+  name: string;
+}
+
+interface Item {
+  id: string;
+  name: string;
+  category: string;
+}
+
 interface ICategorizeRenderer {
   item: {
     [key: string]: {
-      categories: string[];
-      items: string[];
+      categories: Category[];
+      items: Item[];
       points: string;
       quesDesc: string;
     };
   };
 }
+
 
 export const CategorizeRenderer: React.FC<ICategorizeRenderer> = ({ item }) => {
   const questionsArray = Object.entries(item);
@@ -26,7 +38,7 @@ export const CategorizeRenderer: React.FC<ICategorizeRenderer> = ({ item }) => {
   const [state, setState] = useState(
     questionsArray.reduce((acc, [id, ques]) => {
       acc[id] = {
-        sourceItems: ques.items,
+        sourceItems: ques.items.map(item => item.name),
         targetItems: [],
       };
       return acc;
@@ -76,7 +88,16 @@ export const CategorizeRenderer: React.FC<ICategorizeRenderer> = ({ item }) => {
         targetItems,
       };
 
-      setCategorizeData(sourceQuestionId, [...targetItems]);
+      const targetItemsWithMetadata = targetItems.map(itemName => {
+        const originalItem = item[sourceQuestionId].items.find(i => i.name === itemName);
+        return {
+          id: originalItem?.id || '',
+          name: itemName,
+          category: originalItem?.category || ''
+        };
+      });
+
+      setCategorizeData(sourceQuestionId, targetItemsWithMetadata);
 
       return newState;
     });
@@ -140,12 +161,12 @@ export const CategorizeRenderer: React.FC<ICategorizeRenderer> = ({ item }) => {
                 <div className="flex flex-col gap-2">
                   <label className="font-medium">Categorize</label>
                   <div className="bg-yellow-400 rounded-xl w-[10rem] p-4 gap-2 flex flex-col">
-                    {ques?.categories?.map((cat: string, catIndex: number) => (
+                    {ques?.categories?.map((cat: Category, catIndex: number) => (
                       <div
                         key={catIndex}
                         className="border border-black/50 rounded-md items-center flex flex-col p-1 bg-white"
                       >
-                        {cat}
+                        {cat.name}
                       </div>
                     ))}
                   </div>

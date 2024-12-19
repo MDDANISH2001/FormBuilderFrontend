@@ -37,6 +37,7 @@ export const FormSubmition: React.FC = () => {
     saveFormResponseMutation(payload, {
       onSuccess: (data) => {
         console.log("Form saved:", data);
+        alert("Response saved successfully!")
         navigate("/myForms");
       },
       onError: (error) => {

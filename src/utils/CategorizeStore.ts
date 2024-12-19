@@ -1,39 +1,3 @@
-// import { create } from "zustand";
-
-// interface ICategorizeStore {
-//     quesDesc: string,
-//     setQuesDesc: (quesDesc: string) => void;
-//     points: string;
-//     setPoints: (points: string) => void;
-//     categories: any[],
-//     setCategories: (categories: any[]) => void,
-//     items: any[],
-//     setItems: (items: any[]) => void,
-//     newCategoryName: string,
-//     setNewCategoryName: (newCategoryName: string) => void,
-//     newItemName: string,
-//     setNewItemName: (newItemName: string) => void,
-// }
-
-// const initialState = {
-//     quesDesc: "",
-//     points: "",
-//     categories: [],
-//     items: [],
-//     newCategoryName: '',
-//     newItemName: '',
-// };
-
-// export const useCategorizeStore = create<ICategorizeStore>((set, get) => ({
-//   ...initialState,
-//     setQuesDesc: (quesDesc: string) => set({ quesDesc: quesDesc }),
-//     setPoints: (points: string) => set({ points: points }),
-//     setCategories: (categories: any[]) => set({categories: categories}),
-//     setItems: (items: any[]) => set({items: items}),
-//     setNewCategoryName: (newCategoryName: string) => set({ newCategoryName: newCategoryName }),
-//     setNewItemName: (newItemName: string) => set({newItemName: newItemName}),
-// }));
-
 import { create } from "zustand";
 
 interface QuestionData {

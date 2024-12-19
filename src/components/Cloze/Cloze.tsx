@@ -2,11 +2,6 @@ import React, { useEffect, useRef } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useClozeStore } from "@/utils/ClozeStore";
 
-interface Word {
-  id: string;
-  text: string;
-}
-
 interface ClozeProps {
   questionNumber?: number;
   questionId: string;
@@ -51,8 +46,8 @@ const Cloze: React.FC<ClozeProps> = ({
     for (const w of words) {
       // Simple replacement: wrap the first occurrence of w.text in <u>
       // If you want multiple occurrences or more complex logic, adjust here.
-      if (w.text.trim()) {
-        const regex = new RegExp(`(${w.text})`, "i");
+      if (w.trim()) {
+        const regex = new RegExp(`(${w})`, "i");
         rendered = rendered.replace(regex, `<u>$1</u>`);
       }
     }
@@ -91,8 +86,8 @@ const Cloze: React.FC<ClozeProps> = ({
   const addWord = (text: string) => {
     if (text.trim() === "") return;
     // Check if already exists
-    if (!words.find((w) => w.text.toLowerCase() === text.toLowerCase())) {
-      const newEntry: Word = { id: Date.now().toString(), text: text };
+    if (!words.find((w) => w.toLowerCase() === text.toLowerCase())) {
+      const newEntry: string = text.trim();
       setPartial({ words: [...words, newEntry] });
     }
   };
@@ -100,8 +95,8 @@ const Cloze: React.FC<ClozeProps> = ({
   const getPreviewWithUnderscores = (): string => {
     let previewText = sentence;
     for (const w of words) {
-      const underscores = "_".repeat(w.text.length);
-      const regex = new RegExp(`(${w.text})`, "i");
+      const underscores = "_".repeat(w.length);
+      const regex = new RegExp(`(${w})`, "i");
       previewText = previewText.replace(regex, underscores);
     }
     return previewText;
@@ -189,15 +184,15 @@ const Cloze: React.FC<ClozeProps> = ({
       {/* Words checkboxes */}
       <div className="space-y-2">
         {words.map((w, i) => (
-          <div key={w.id} className="flex items-center space-x-2">
+          <div key={i} className="flex items-center space-x-2">
             <span className="cursor-move text-gray-500">⋮⋮</span>
             <input type="checkbox" className="h-4 w-4" defaultChecked />
             <input
               className="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-blue-500 flex-1"
-              value={w.text}
+              value={w}
               onChange={(e) => {
                 const updated = [...words];
-                updated[i] = { ...updated[i], text: e.target.value };
+                updated[i] = e.target.value ;
                 setPartial({ words: updated });
               }}
             />

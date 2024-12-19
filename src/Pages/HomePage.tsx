@@ -7,7 +7,7 @@ import { useComprehensionStore } from "@/utils/ComprehensionStore";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { HiMiniPlusCircle } from "react-icons/hi2";
-import { useSaveForm } from "@/apis/useForm"; 
+import { useSaveForm } from "@/apis/useForm";
 import { ImSpinner10 } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 
@@ -161,27 +161,27 @@ export const HomePage: React.FC = () => {
           placeholder="Enter Form Title"
           className="border border-gray-400 rounded-sm px-2"
         />
-        <button
-          type="submit"
-          onClick={() => handleSaveForm()}
-          className={`${
-            savingFailed
-              ? "bg-red-400 hover:bg-red-500"
-              : "bg-blue-500 hover:bg-blue-600"
-          } text-white p-2 px-4 rounded-md `}
-        >
-          {savingForm ? (
-            <ImSpinner10 className="animate-spin w-6 h-6 text-white" />
-          ) : (
-            "Save & Next"
-          )}
-        </button>
 
         <button
           onClick={handleAllForms}
           className="bg-green-400 p-2 px-4 rounded-md hover:bg-green-500"
         >
           View All Forms
+        </button>
+
+        <button
+          type="submit"
+          onClick={() => handleSaveForm()}
+          className={`${savingFailed
+              ? "bg-red-400 hover:bg-red-500"
+              : "bg-blue-500 hover:bg-blue-600"
+            } text-white p-2 px-4 rounded-md `}
+        >
+          {savingForm ? (
+            <ImSpinner10 className="animate-spin w-6 h-6 text-white" />
+          ) : (
+            "Save & Next"
+          )}
         </button>
       </div>
 

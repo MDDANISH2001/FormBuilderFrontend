@@ -1,7 +1,13 @@
 import { create } from "zustand";
 
+interface Item {
+  id: string;
+  name: string;
+  category: string;
+}
+
 interface CategorizeData {
-  items: string[]; // Only items array required
+  items: Item[];
 }
 
 interface ClozeData {
@@ -11,14 +17,14 @@ interface ClozeData {
 interface RendererStore {
   categorize: Record<string, CategorizeData>;
   cloze: Record<string, ClozeData>;
-  comprehension: Record<string, string>; // Ensuring it's a flat key-value object
-  setCategorizeData: (questionId: string, items: string[]) => void;
+  comprehension: Record<string, string>;
+  setCategorizeData: (questionId: string, items: Item[]) => void;
   setClozeData: (questionId: string, sentence: string) => void;
   setComprehensionData: (mcqId: string, selectedOption: string) => void;
   getPayload: () => {
     categorize: Record<string, CategorizeData>;
     cloze: Record<string, ClozeData>;
-    comprehension: Record<string, string>; // Keep this consistent with the comprehension type
+    comprehension: Record<string, string>;
   };
 }
 
@@ -49,7 +55,7 @@ export const useRendererStore = create<RendererStore>((set, get) => ({
     set((state) => ({
       comprehension: {
         ...state.comprehension,
-        [mcqId]: selectedOption, // Ensure selectedOption is correctly stored
+        [mcqId]: selectedOption,
       },
     }));
   },
